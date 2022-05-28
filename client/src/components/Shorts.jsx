@@ -9,7 +9,7 @@ function Shorts() {
     let onSubmit = (evt) => {
         evt.preventDefault();
         console.log(url)
-        axios.post("/shorten", { "url": url })
+        axios.post("shorts/shorten", { "url": url })
     }
 
     function handleChange(evt) {

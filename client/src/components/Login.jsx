@@ -8,7 +8,7 @@ function Login() {
 
     let onSubmit = (evt) => {
         evt.preventDefault();
-        axios.post("/hello", Object.fromEntries(formData))
+        axios.post("user/login", Object.fromEntries(formData))
     }
 
     function handleChange(evt) {
