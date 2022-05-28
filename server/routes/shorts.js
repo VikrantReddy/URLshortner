@@ -1,8 +1,12 @@
 const express = require("express");
 const shorts = express();
 
-shorts.get("/", (req, res) => {
-  res.send("Hello world");
+const URLS = {
+  shorty1: "https://www.google.com/",
+};
+
+shorts.get("/:shorturl", (req, res) => {
+  res.redirect(URLS[req.params.shorturl]);
 });
 
 shorts.post("/shorten", (req, res) => {
