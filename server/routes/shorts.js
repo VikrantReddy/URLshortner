@@ -16,11 +16,13 @@ shorts.get("/:shorturl", (req, res) => {
       return el.shorturl == req.params.shorturl;
     })
   );
-  res.redirect(
-    URLS.filter((el) => {
-      return el.shorturl === req.params.shorturl;
-    })[0]["original"]
-  );
+
+  for (item of URLS) {
+    if (item.shorturl == req.params.shorturl) {
+      return res.redirect(item["original"]);
+    }
+  }
+  res.status(404);
 });
 
 shorts.post("/shorten", (req, res) => {
