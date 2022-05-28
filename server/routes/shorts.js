@@ -1,17 +1,33 @@
 const express = require("express");
 const shorts = express();
-
-const URLS = {
-  shorty1: "https://www.google.com/",
-};
+const makeid = require("../controllers/shorts.controller.js");
+const URLS = [
+  {
+    shorturl: "shorty1",
+    original: "https://www.google.com/",
+  },
+];
 
 shorts.get("/:shorturl", (req, res) => {
-  res.redirect(URLS[req.params.shorturl]);
+  console.log(req.params.shorturl);
+  console.log(URLS);
+  console.log(
+    URLS.filter((el) => {
+      return el.shorturl == req.params.shorturl;
+    })
+  );
+  res.redirect(
+    URLS.filter((el) => {
+      return el.shorturl === req.params.shorturl;
+    })[0]["original"]
+  );
 });
 
 shorts.post("/shorten", (req, res) => {
-  console.log(req.body);
-  res.send("Recieved Url");
+  let shorturl = makeid(7);
+  URLS.push({ shorturl: shorturl, original: req.body["url"] });
+  console.log(URLS);
+  res.send(shorturl);
 });
 
 module.exports = shorts;
